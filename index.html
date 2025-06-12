@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Dashboard System</title>
+    <link rel="stylesheet" href="assets/dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <header class="main-header">
+            <h1>🎯 Project Dashboard</h1>
+            <p>Generate weekly project health reports for Client Campaigns</p>
+        </header>
+
+        <!-- Data Source Section -->
+        <section class="data-section">
+            <h2>📊 Data Source</h2>
+            
+            <div class="data-options">
+                <div class="option-card active" id="upload-option">
+                    <h3>📁 Upload CSV Data</h3>
+                    <p>Upload your extracted Asana project data</p>
+                    <input type="file" id="csv-upload" accept=".csv" style="display: none;">
+                    <button id="upload-btn" class="primary-btn">Upload CSV File</button>
+                </div>
+            </div>
+
+            <div id="data-status" class="status-panel"></div>
+        </section>
+
+        <!-- Filters Section -->
+        <section class="filters-section">
+            <h2>🎯 Report Configuration</h2>
+            
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label for="project-select">Project:</label>
+                    <select id="project-select" disabled>
+                        <option value="">Load data first...</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="date-preset">Report Period:</label>
+                    <select id="date-preset">
+                        <option value="week">Last 7 Days</option>
+                        <option value="month">Last 30 Days</option>
+                        <option value="quarter">Last 90 Days</option>
+                        <option value="custom">Custom Range</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group" id="custom-dates" style="display: none;">
+                    <label for="start-date">Start Date:</label>
+                    <input type="date" id="start-date">
+                    <label for="end-date">End Date:</label>
+                    <input type="date" id="end-date">
+                </div>
+            </div>
+            
+            <button id="generate-report-btn" class="primary-btn" disabled>Generate Report</button>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section" id="results-section" style="display: none;">
+            <div class="results-header">
+                <h2 id="report-title">Project Report</h2>
+                <div class="export-controls">
+                    <button id="export-csv-btn" class="export-btn">📄 Export CSV</button>
+                    <button id="bulk-export-btn" class="export-btn" disabled style="opacity: 0.5;">📦 Bulk Export (Coming Soon)</button>
+                </div>
+            </div>
+
+            <!-- Health Overview -->
+            <div class="health-overview">
+                <div id="health-status" class="health-indicator">
+                    Project Health Status
+                </div>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value" id="time-elapsed">0%</div>
+                        <div class="metric-label">Time Elapsed</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="budget-used">0%</div>
+                        <div class="metric-label">Budget Used</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="deliverables-completed">0%</div>
+                        <div class="metric-label">Deliverables Completed</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="hours-logged">0</div>
+                        <div class="metric-label">Hours Logged</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Breakdown -->
+            <div class="breakdown-section">
+                <h3>📋 Task Breakdown</h3>
+                <div class="table-container">
+                    <table id="tasks-table" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Task</th>
+                                <th>Status</th>
+                                <th>Estimated Hours</th>
+                                <th>Budget %</th>
+                                <th>Hours Used</th>
+                                <th>Used %</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading Overlay -->
+        <div id="loading-overlay" class="loading-overlay" style="display: none;">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Processing data...</div>
+        </div>
+    </div>
+
+    <script src="assets/dashboard.js"></script>
+</body>
+</html>
